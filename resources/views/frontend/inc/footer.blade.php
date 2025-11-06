@@ -48,6 +48,9 @@
 @endif
 
 <!-- footer top Bar -->
+@if (Request::is('about-us'))
+    <!-- Nothing to show -->
+@else
 <section class="bg-light border-top mt-auto">
     <div class="container px-xs-0">
         <div class="row no-gutters border-left border-soft-light">
@@ -106,6 +109,9 @@
         </div>
     </div>
 </section>
+
+@endif
+
 
 <!-- footer subscription & icons -->
 <section class="py-3 text-light footer-widget border-bottom" style="border-color: #3d3d46 !important; background-color: #212129 !important;">
@@ -560,6 +566,8 @@
                                 </li>
                             @endforeach
                         @endif
+                        <span><a href="/terms" class="d-inline-block ml-2">Term of Use</a> | <a href="/privacy-policy" class="d-inline-block ml-2">Privacy Policy</a></span>
+                            
                     </ul>
                 </div>
             </div>

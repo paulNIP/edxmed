@@ -1,6 +1,14 @@
-@extends('frontend.layouts.app')
+@extends('frontend.layouts.page_app')
 
 @section('content')
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.theme.min.css">
+
     <style>
         .home-slider {
             max-width: 100% !important;
@@ -37,132 +45,587 @@
                 height: 203px !important;
             }
         }
+
+        hr.section-divider {
+        border: none;
+        border-top: 2px solid #7A7A7A;
+        margin: 2rem 0;
+        position: relative;
+        }
+        hr.section-divider::after {
+        content: "";
+        position: absolute;
+        top: -2px;
+        left: 0;
+        width: 80px;
+        height: 2px;
+        background: linear-gradient(to right, #7A7A7A, #7A7A7A);
+        }
+
+        /* start: Avatar */
+        .avatar-group {
+            display: flex;
+            align-items: center;
+            /* justify-content: center; */
+        }
+        .avatar {
+            position: relative;
+            transition: .2s;
+        }
+        .avatar:not(:first-child) {
+            margin-left: -1.5rem;
+        }
+        .avatar:hover {
+            z-index: 1;
+            transform: translateY(-.5rem);
+        }
+        .avatar-name {
+            position: absolute;
+            bottom: calc(100% + .5rem);
+            left: 50%;
+            transform: translateX(-50%);
+            padding: .5rem .75rem;
+            border-radius: .25rem;
+            background-color: rgba(0, 0, 0, .7);
+            color: #fff;
+            font-size: .875rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: .2s;
+        }
+        .avatar-name::before {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: .5rem solid;
+            border-color: rgba(0, 0, 0, .7) transparent transparent;
+        }
+        .avatar:hover .avatar-name {
+            opacity: 1;
+            visibility: visible;
+        }
+        .avatar img {
+            width: 4rem;
+            height: 4rem;
+            display: block;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid #fff;
+            box-shadow: 0 .25rem 1rem rgba(0, 0, 0, .1);
+        }
+        /* end: Avatar */
+
+        .inter-font {
+        font-family: "Inter", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: <weight>;
+        font-style: normal;
+        }
+
+
+        .container-why {
+            display: flex;
+            align-items: center; /* vertically center the text */
+            gap: 10px; /* space between image and text */
+        }
+
+        .image {
+            width: 100px;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .text {
+            
+        }
+
+
+
+
+
     </style>
+
 
     @php $lang = get_system_language()->code;  @endphp
 
     <!-- home banner area -->
     <div class="home-banner-area mb-3" style="">
-        <div class="container">
-            <div class="row gutters-12 position-relative">
-                <!-- category menu -->
-                <div class="position-static d-none d-xl-block col-auto">
-                    @include('frontend.'.get_setting("homepage_select").'.partials.category_menu')
-                </div>
 
-                <div class="col-lg mt-4">
-                    <!-- Sliders -->
-                    @if (get_setting('home_slider_images', null, $lang) != null)
-                        <div class="home-slider">
-                            <div class="aiz-carousel overflow-hidden rounded-2" data-autoplay="true" data-infinite="true">
-                                @php
-                                    $decoded_slider_images = json_decode(get_setting('home_slider_images', null, $lang), true);
-                                    $sliders = get_slider_images($decoded_slider_images);
-                                    $home_slider_links = get_setting('home_slider_links', null, $lang);
-                                @endphp
-                                @foreach ($sliders as $key => $slider)
-                                    <div class="carousel-box">
-                                        <a class="d-block" href="{{ isset(json_decode($home_slider_links, true)[$key]) ? json_decode($home_slider_links, true)[$key] : '' }}">
-                                            <img
-                                                class="d-block mw-100 img-fit h-180px h-md-320px @if(count($featured_categories) == 0) h-lg-530px @else h-lg-350px @endif"
-                                                src="{{ $slider ? my_asset($slider->file_name) : asset('assets/img/placeholder.jpg') }}"
-                                                alt="{{ env('APP_NAME')}} promo"
-                                                onerror="this.onerror=null;this.src='{{ asset('assets/img/placeholder-rect.jpg') }}';"
-                                            >
-                                        </a>
-                                    </div>
-                                @endforeach
-                            </div>
+        <div id="section_best_selling" style="background-color: #DEE9FF; padding-top: 15px; padding-bottom: 15px;">
+                <section >
+                    <div class="container px-3">
+                        <!-- Top Section -->
+                        <div class="d-flex mb-2 mb-md-3 mt-2 mt-md-3 align-items-baseline justify-content-between">
+                            <!-- Title -->
+                            <h3 class="fs-16 fs-md-20 fw-700 mb-2 mb-sm-0">
+                                <span class="inter-font" style="font-size: 48px; margin-bottom:20px">Your Health Partner, <br> Every Step of the Way.</span>
+                            </h3>
+                            <!-- Links -->
+                            <!-- <div class="d-flex">
+                                <a type="button" class="arrow-prev slide-arrow link-disable text-secondary mr-2" onclick="clickToSlide('slick-prev','section_best_selling')"><i class="las la-angle-left fs-20 fw-600"></i></a>
+                                <a type="button" class="arrow-next slide-arrow text-secondary ml-2" onclick="clickToSlide('slick-next','section_best_selling')"><i class="las la-angle-right fs-20 fw-600"></i></a>
+                            </div> -->
+
+                            
                         </div>
-                    @endif
-
-                    <!-- Featured Categories -->
-                    @if (count($featured_categories) > 0)
-                        <div class="bg-whit mt-4">
-                            <div class="aiz-carousel slick-left arrow-inactive-none arrow-x-0" data-items="6.5" data-xxl-items="6.5" data-xl-items="4.5"
-                                data-lg-items="5" data-md-items="5" data-sm-items="3" data-xs-items="2" data-arrows="true">
-                                @foreach ($featured_categories as $key => $category)
-                                    @php
-                                        $category_name = $category->getTranslation('name');
-                                    @endphp
-                                    <div class="carousel-box">
-                                        <div class="d-flex flex-column align-items-center overflow-hidden" style="width: 110px; height: 155px;border-radius: 8px;background: #f5f6f7; box-shadow: 0px 0px 25px -15px rgba(171,169,171,1);">
-                                            <div class="overflow-hidden hov-scale-img" style="width: 110px; height:100px; min-height:100px;">
-                                                <a class="d-block h-100" href="{{ route('products.category', $category->slug) }}">
-                                                    <img src="{{ isset($category->bannerImage->file_name) ? my_asset($category->bannerImage->file_name) : asset('assets/img/placeholder.jpg') }}"
-                                                        class="lazyload img-fit h-100 mx-auto has-transition"
-                                                        alt="{{ $category->getTranslation('name') }}"
-                                                        onerror="this.onerror=null;this.src='{{ asset('assets/img/placeholder.jpg') }}';">
-                                                </a>
-                                            </div>
-                                            <p class="mt-1 mb-0 fs-12 fw-500 text-center text-truncate-2 px-2">
-                                                <a class="text-reset hov-text-primary"
-                                                    href="{{ route('products.category', $category->slug) }}"
-                                                    style="width: max-content;">
-                                                    {{ $category_name }}
-                                                </a>
-                                            </p>
-                                        </div>
-                                    </div>
-                                @endforeach
+                        <!-- Product Section -->
+                        <div class="px-sm-3">
+                            <div class="avatar-group">
+                                <div class="avatar">
+                                    <span class="avatar-name">Someone 1</span>
+                                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Image">
+                                </div>
+                                <div class="avatar">
+                                    <span class="avatar-name">Someone 2</span>
+                                    <img src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cGVyc29ufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Image">
+                                </div>
+                                <div class="avatar">
+                                    <span class="avatar-name">Someone 3</span>
+                                    <img src="https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8cGVyc29ufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Image">
+                                </div>
+                                <div class="avatar">
+                                    <span class="avatar-name">Someone 4</span>
+                                    <img src="https://images.unsplash.com/photo-1499952127939-9bbf5af6c51c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fHBlcnNvbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" alt="Image">
+                                </div>
+                                <div class="avatar">
+                                    <span class="avatar-name">Someone 5</span>
+                                    <img src="https://images.unsplash.com/photo-1504593811423-6dd665756598?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fHBlcnNvbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" alt="Image">
+                                </div>
+                                <div style="margin-left: 0.1rem;">
+                                    <h5 class="fs-16 fs-md-20 fw-700 mb-2 mb-sm-0">
+                                        <span class="" style="color:#D64779">100K + </span>
+                                    </h5>
+                                    <span style="color:#202020">Satisfied Customers</span>
+                                </div>
                             </div>
+                            
                         </div>
-                    @endif
-                </div>
+                    </div>
+                </section>
+        </div>
 
-                <!-- Today's deal -->
-                @php
-                    $todays_deal_products = filter_products(App\Models\Product::where('todays_deal', '1'))->orderBy('id', 'desc')->get();
-                @endphp
-                @if(count($todays_deal_products) > 0)
-                    <div class="col-12 col-lg-auto mt-4">
-                        <div class="todays_deal bg-white rounded-2 overflow-hidden">
-                            <div class="bg-soft-primary p-3 d-flex align-items-center justify-content-center">
-                                <span class="fw-700 fs-18 mr-2 text-truncate">
-                                    {{ translate('Todays Deal') }}
-                                </span>
-                                <span class="badge badge-primary badge-inline rounded-1 fs-11">{{ translate('Hot') }}</span>
+        <div id="section_best_selling" style="background-color: #EDEDED;">
+                <section class="bg-light border-top mt-auto">
+    <div class="container px-xs-0">
+        <div class="row no-gutters border-left border-soft-light">
+            <!-- Terms & conditions -->
+            <div class="col-lg-3 col-6 policy-file">
+                <a class="text-reset h-100  border-right border-bottom border-soft-light text-center p-2 p-md-4 d-block hov-ls-1" href="{{ route('terms') }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="26.004" height="32" viewBox="0 0 26.004 32">
+                        <path id="Union_8" data-name="Union 8" d="M-14508,18932v-.01a6.01,6.01,0,0,1-5.975-5.492h-.021v-14h1v13.5h0a4.961,4.961,0,0,0,4.908,4.994h.091v0h14v1Zm17-4v-1a2,2,0,0,0,2-2h1a3,3,0,0,1-2.927,3Zm-16,0a3,3,0,0,1-3-3h1a2,2,0,0,0,2,2h16v1Zm18-3v-16.994h-4v-1h3.6l-5.6-5.6v3.6h-.01a2.01,2.01,0,0,0,2,2v1a3.009,3.009,0,0,1-3-3h.01v-4h.6l0,0H-14507a2,2,0,0,0-2,2v22h-1v-22a3,3,0,0,1,3-3v0h12l0,0,7,7-.01.01V18925Zm-16-4.992v-1h12v1Zm0-4.006v-1h12v1Zm0-4v-1h12v1Z" transform="translate(14513.998 -18900.002)" fill="#919199"/>
+                    </svg>
+                    <h4 class="text-dark fs-14 fw-700 mt-3">{{ translate('Shipping') }}</h4>
+                </a>
+            </div>
+
+            <!-- Return Policy -->
+            <div class="col-lg-3 col-6 policy-file">
+                <a class="text-reset h-100  border-right border-bottom border-soft-light text-center p-2 p-md-4 d-block hov-ls-1" href="{{ route('returnpolicy') }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32.001" height="23.971" viewBox="0 0 32.001 23.971">
+                        <path id="Union_7" data-name="Union 7" d="M-14490,18922.967a6.972,6.972,0,0,0,4.949-2.051,6.944,6.944,0,0,0,2.052-4.943,7.008,7.008,0,0,0-7-7v0h-22.1l7.295,7.295-.707.707-7.779-7.779-.708-.707.708-.7,7.774-7.779.712.707-7.261,7.258H-14490v0a8.01,8.01,0,0,1,8,8,8.008,8.008,0,0,1-8,8Z" transform="translate(14514.001 -18900)" fill="#919199"/>
+                    </svg>
+                    <h4 class="text-dark fs-14 fw-700 mt-3">{{ translate('Quick Payment') }}</h4>
+                </a>
+            </div>
+
+            <!-- Support Policy -->
+            <div class="col-lg-3 col-6 policy-file">
+                <a class="text-reset h-100  border-right border-bottom border-soft-light text-center p-2 p-md-4 d-block hov-ls-1" href="{{ route('supportpolicy') }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32.002" height="32.002" viewBox="0 0 32.002 32.002">
+                        <g id="Group_24198" data-name="Group 24198" transform="translate(-1113.999 -2398)">
+                        <path id="Subtraction_14" data-name="Subtraction 14" d="M-14508,18916h0l-1,0a12.911,12.911,0,0,1,3.806-9.187A12.916,12.916,0,0,1-14496,18903a12.912,12.912,0,0,1,9.193,3.811A12.9,12.9,0,0,1-14483,18916l-1,0a11.918,11.918,0,0,0-3.516-8.484A11.919,11.919,0,0,0-14496,18904a11.921,11.921,0,0,0-8.486,3.516A11.913,11.913,0,0,0-14508,18916Z" transform="translate(15626 -16505)" fill="#919199"/>
+                        <path id="Subtraction_15" data-name="Subtraction 15" d="M-14510,18912h-1a3,3,0,0,1-3-3v-6a3,3,0,0,1,3-3h1a2,2,0,0,1,2,2v8A2,2,0,0,1-14510,18912Zm-1-11a2,2,0,0,0-2,2v6a2,2,0,0,0,2,2h1a1,1,0,0,0,1-1v-8a1,1,0,0,0-1-1Z" transform="translate(15628 -16489)" fill="#919199"/>
+                        <path id="Subtraction_19" data-name="Subtraction 19" d="M4,12H3A3,3,0,0,1,0,9V3A3,3,0,0,1,3,0H4A2,2,0,0,1,6,2v8A2,2,0,0,1,4,12ZM3,1A2,2,0,0,0,1,3V9a2,2,0,0,0,2,2H4a1,1,0,0,0,1-1V2A1,1,0,0,0,4,1Z" transform="translate(1146.002 2423) rotate(180)" fill="#919199"/>
+                        <path id="Subtraction_17" data-name="Subtraction 17" d="M-14512,18908a2,2,0,0,1-2-2v-4a2,2,0,0,1,2-2,2,2,0,0,1,2,2v4A2,2,0,0,1-14512,18908Zm0-7a1,1,0,0,0-1,1v4a1,1,0,0,0,1,1,1,1,0,0,0,1-1v-4A1,1,0,0,0-14512,18901Z" transform="translate(20034 16940.002) rotate(90)" fill="#919199"/>
+                        <rect id="Rectangle_18418" data-name="Rectangle 18418" width="1" height="4.001" transform="translate(1137.502 2427.502) rotate(90)" fill="#919199"/>
+                        <path id="Intersection_1" data-name="Intersection 1" d="M-14508.5,18910a4.508,4.508,0,0,0,4.5-4.5h1a5.508,5.508,0,0,1-5.5,5.5Z" transform="translate(15646.004 -16482.5)" fill="#919199"/>
+                        </g>
+                    </svg>
+                    <h4 class="text-dark fs-14 fw-700 mt-3">{{ translate('Support Policy') }}</h4>
+                </a>
+            </div>
+
+            <!-- Privacy Policy -->
+            <div class="col-lg-3 col-6 policy-file">
+                <a class="text-reset h-100 border-right border-bottom border-soft-light text-center p-2 p-md-4 d-block hov-ls-1" href="{{ route('privacypolicy') }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                        <g id="Group_24236" data-name="Group 24236" transform="translate(-1454.002 -2430.002)">
+                        <path id="Subtraction_11" data-name="Subtraction 11" d="M-14498,18932a15.894,15.894,0,0,1-11.312-4.687A15.909,15.909,0,0,1-14514,18916a15.884,15.884,0,0,1,4.685-11.309A15.9,15.9,0,0,1-14498,18900a15.909,15.909,0,0,1,11.316,4.688A15.885,15.885,0,0,1-14482,18916a15.9,15.9,0,0,1-4.687,11.316A15.909,15.909,0,0,1-14498,18932Zm0-31a14.9,14.9,0,0,0-10.605,4.393A14.9,14.9,0,0,0-14513,18916a14.9,14.9,0,0,0,4.395,10.607A14.9,14.9,0,0,0-14498,18931a14.9,14.9,0,0,0,10.607-4.393A14.9,14.9,0,0,0-14483,18916a14.9,14.9,0,0,0-4.393-10.607A14.9,14.9,0,0,0-14498,18901Z" transform="translate(15968 -16470)" fill="#919199"/>
+                        <g id="Group_24196" data-name="Group 24196" transform="translate(0 -1)">
+                            <rect id="Rectangle_18406" data-name="Rectangle 18406" width="2" height="10" transform="translate(1469 2440)" fill="#919199"/>
+                            <rect id="Rectangle_18407" data-name="Rectangle 18407" width="2" height="2" transform="translate(1469 2452)" fill="#919199"/>
+                        </g>
+                        </g>
+                    </svg>
+                    <h4 class="text-dark fs-14 fw-700 mt-3">{{ translate('24/7 Support') }}</h4>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+        <div id="section_best_selling" style="background-color: #EDEDED; padding-top: 15px; padding-bottom: 15px;">
+                <section >
+                    <div class="container px-3">
+                        <!-- Top Section -->
+                        <div class="d-flex mb-2 mb-md-3 mt-2 mt-md-3 align-items-baseline justify-content-between">
+                            <!-- Title -->
+                            <h3 class="fs-16 fs-md-20 fw-700 mb-2 mb-sm-0">
+                                <span class="">Best Selling</span>
+                            </h3>
+                            <!-- Links -->
+                            <!-- <div class="d-flex">
+                                <a type="button" class="arrow-prev slide-arrow link-disable text-secondary mr-2" onclick="clickToSlide('slick-prev','section_best_selling')"><i class="las la-angle-left fs-20 fw-600"></i></a>
+                                <a type="button" class="arrow-next slide-arrow text-secondary ml-2" onclick="clickToSlide('slick-next','section_best_selling')"><i class="las la-angle-right fs-20 fw-600"></i></a>
+                            </div> -->
+                        </div>
+
+                        
+                        <!-- Product Section -->
+                        <div class="px-sm-3">
+                            
+                        </div>
+                    </div>
+                </section>
+        </div>
+
+         <div id="section_best_selling" style="background-color: #EDEDED; padding-top: 15px; padding-bottom: 15px;">
+                <section >
+                    <div class="container px-3">
+                        <!-- Top Section -->
+                        <h3 class="fs-16 fs-md-20 fw-700 mb-2 mb-sm-0" style="margin: 20px 0;">
+                                <span class="inter-font" style="font-size: 48px; margin-bottom:20px;color:#0D0D0D">Our Commitment to <br> Quality.</span>
+                            </h3>
+                            <span style="color:#BCBCBC; margin: 20px 0; margin-bottom:40px;">Lorem ipsum dolor sit amet, <br> consectetur adipiscing elit, <br> 
+                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </span>
+
+
+                        <!-- Product Section -->
+                        <div class="px-sm-3">
+                            <div class="container-why">
+                                <div style="height:60px;
+                                border-radius:8px; width:60px;
+                                
+                                ">
+                                    <!-- <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-award"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg> -->
+                                    <p style="font-size: 48px;">🩺</p>
+                                </div>
+                                <!-- <img src="example.jpg" alt="Example" class="image"> -->
+                                <div class="text">
+                                    <h3 class="fs-16 fs-md-20 fw-700 mb-2 mb-sm-0" style="margin: 20px 0;">
+                                            <span class="inter-font" style="font-size: 22px; margin-bottom:20px;color:#0D0D0D">Trusted Medical Experts</span>
+                                        </h3>
+                                        <span style="color:#BCBCBC; margin: 20px 0; margin-bottom:40px;">Connect instantly with certified doctors and specialists for professional medical advice and consultations.<br>doctors and specialists for professional medical advice and consultations.</span>
+                                </div>
                             </div>
-                            <div class="c-scrollbar-light overflow-auto h-lg-470px p-2 bg-primary">
-                                <div class="gutters-5 lg-no-gutters row row-cols-2 row-cols-md-3 row-cols-lg-1">
-                                    @foreach ($todays_deal_products as $key => $product)
-                                        @if ($product != null)
-                                        <div class="col mb-2">
-                                            <a href="{{ route('product', $product->slug) }}" class="d-block p-2 text-reset bg-white h-100 rounded">
-                                                <div class="row gutters-5 align-items-center" style="margin-bottom: 1.5px;">
-                                                    <div class="col-md">
-                                                        <div class="img">
-                                                            <img
-                                                                class="lazyload img-fit h-140px h-lg-90px"
-                                                                src="{{ asset('assets/img/placeholder.jpg') }}"
-                                                                data-src="{{ uploaded_asset($product->thumbnail_img) }}"
-                                                                alt="{{ $product->getTranslation('name') }}"
-                                                                onerror="this.onerror=null;this.src='{{ asset('assets/img/placeholder.jpg') }}';"
-                                                            >
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md mt-2 mt-md-0 text-center">
-                                                        <div class="fs-14">
-                                                            <span class="d-block text-primary fw-700">{{ home_discounted_base_price($product) }}</span>
-                                                            @if(home_base_price($product) != home_discounted_base_price($product))
-                                                                <del class="d-block opacity-70">{{ home_base_price($product) }}</del>
-                                                            @endif
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
+
+                             <div class="container-why">
+                                <div style="height:60px;
+                                border-radius:8px; width:60px;
+                                display: flex;
+                                justify-content: center; 
+                                align-items: center; 
+                                ">
+                                    <!-- <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-award"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg> -->
+                                   <p style="font-size: 48px;">💊</p>
+                                
+                                </div>
+                                <!-- <img src="example.jpg" alt="Example" class="image"> -->
+                                <div class="text">
+                                    <h3 class="fs-16 fs-md-20 fw-700 mb-2 mb-sm-0" style="margin: 20px 0;">
+                                            <span class="inter-font" style="font-size: 22px; margin-bottom:20px;color:#0D0D0D">One-Stop Healthcare Platform</span>
+                                        </h3>
+                                        <span style="color:#BCBCBC; margin: 20px 0; margin-bottom:40px;">Shop for genuine medicines, health supplies, and wellness products — all in one app.<br>doctors and specialists for professional medical advice and consultations.</span>
+                                </div>
+                            </div>
+
+                             <div class="container-why">
+                                <div style="height:60px;
+                                border-radius:8px; width:60px;
+                                display: flex;
+                                justify-content: center; 
+                                align-items: center; 
+                                ">
+                                    <!-- <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-award"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg> -->
+                                    <p style="font-size: 48px;">📅</p>
+                                </div>
+                                <!-- <img src="example.jpg" alt="Example" class="image"> -->
+                                <div class="text">
+                                    <h3 class="fs-16 fs-md-20 fw-700 mb-2 mb-sm-0" style="margin: 20px 0;">
+                                            <span class="inter-font" style="font-size: 22px; margin-bottom:20px;color:#0D0D0D">Easy Appointment Scheduling</span>
+                                        </h3>
+                                        <span style="color:#BCBCBC; margin: 20px 0; margin-bottom:40px;">Book doctor appointments anytime, anywhere with instant confirmation and reminders. <br>doctors and specialists for professional medical advice and consultations.</span>
+                                </div>
+                            </div>
+
+                             <div class="container-why">
+                                <div style="height:60px;
+                                border-radius:8px; width:60px;
+                                display: flex;
+                                justify-content: center; 
+                                align-items: center; 
+                                ">
+                                    <!-- <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-award"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg> -->
+                                    <p style="font-size: 48px;">🔔</p>
+                                </div>
+                                <!-- <img src="example.jpg" alt="Example" class="image"> -->
+                                <div class="text">
+                                    <h3 class="fs-16 fs-md-20 fw-700 mb-2 mb-sm-0" style="margin: 20px 0;">
+                                            <span class="inter-font" style="font-size: 22px; margin-bottom:20px;color:#0D0D0D">Real-Time Notifications</span>
+                                        </h3>
+                                        <span style="color:#BCBCBC; margin: 20px 0; margin-bottom:40px;">Get updates about upcoming appointments, prescriptions, health events, and new product launches.  <br>doctors and specialists for professional medical advice and consultations.</span>
+                                </div>
+                            </div>
+
+                             <div class="container-why">
+                                <div style="height:60px;
+                                border-radius:8px; width:60px;
+                                display: flex;
+                                justify-content: center; 
+                                align-items: center; 
+                                ">
+                                    <!-- <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-award"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg> -->
+                                    <p style="font-size: 48px;">💬</p>
+                                </div>
+                                <!-- <img src="example.jpg" alt="Example" class="image"> -->
+                                <div class="text">
+                                    <h3 class="fs-16 fs-md-20 fw-700 mb-2 mb-sm-0" style="margin: 20px 0;">
+                                            <span class="inter-font" style="font-size: 22px; margin-bottom:20px;color:#0D0D0D">Secure & Private Consultations</span>
+                                        </h3>
+                                        <span style="color:#BCBCBC; margin: 20px 0; margin-bottom:40px;">Your health information and chats are encrypted and never shared with third parties. <br>doctors and specialists for professional medical advice and consultations.</span>
+                                </div>
+                            </div>
+
+                             <div class="container-why">
+                                <div style="height:60px;
+                                border-radius:8px; width:60px;
+                                display: flex;
+                                justify-content: center; 
+                                align-items: center; 
+                                ">
+                                    <!-- <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-award"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg> -->
+                                    <p style="font-size: 48px;">🚚</p>
+                                </div>
+                                <!-- <img src="example.jpg" alt="Example" class="image"> -->
+                                <div class="text">
+                                    <h3 class="fs-16 fs-md-20 fw-700 mb-2 mb-sm-0" style="margin: 20px 0;">
+                                            <span class="inter-font" style="font-size: 22px; margin-bottom:20px;color:#0D0D0D">Fast & Reliable Delivery</span>
+                                        </h3>
+                                        <span style="color:#BCBCBC; margin: 20px 0; margin-bottom:40px;">Get medicines and healthcare essentials delivered safely to your doorstep. <br>doctors and specialists for professional medical advice and consultations.</span>
+                                </div>
+                            </div>
+
+                             <div class="container-why">
+                                <div style="height:60px;
+                                border-radius:8px; width:60px;
+                                display: flex;
+                                justify-content: center; 
+                                align-items: center; 
+                                ">
+                                    <!-- <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-award"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg> -->
+                                    <p style="font-size: 48px;">💰</p>
+                                </div>
+                                <!-- <img src="example.jpg" alt="Example" class="image"> -->
+                                <div class="text">
+                                    <h3 class="fs-16 fs-md-20 fw-700 mb-2 mb-sm-0" style="margin: 20px 0;">
+                                            <span class="inter-font" style="font-size: 22px; margin-bottom:20px;color:#0D0D0D">Affordable Healthcare Access</span>
+                                        </h3>
+                                        <span style="color:#BCBCBC; margin: 20px 0; margin-bottom:40px;">Enjoy competitive pricing on medical products and consultation fees. <br>doctors and specialists for professional medical advice and consultations.</span>
+                                </div>
+                            </div>
+
+                             <div class="container-why">
+                                <div style="height:60px;
+                                border-radius:8px; width:60px;
+                                display: flex;
+                                justify-content: center; 
+                                align-items: center; 
+                                ">
+                                    <!-- <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-award"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg> -->
+                                    <p style="font-size: 48px;">❤️</p>
+                                </div>
+                                <!-- <img src="example.jpg" alt="Example" class="image"> -->
+                                <div class="text">
+                                    <h3 class="fs-16 fs-md-20 fw-700 mb-2 mb-sm-0" style="margin: 20px 0;">
+                                            <span class="inter-font" style="font-size: 22px; margin-bottom:20px;color:#0D0D0D">Personalized Health Experience</span>
+                                        </h3>
+                                        <span style="color:#BCBCBC; margin: 20px 0; margin-bottom:40px;">Receive tailored health recommendations, event alerts, and follow-up reminders based on your history. <br>doctors and specialists for professional medical advice and consultations.</span>
+                                </div>
+                            </div>
+
+                            
+                        </div>
+                    </div>
+                </section>
+        </div>
+
+        
+        <div id="section_best_selling" style="background-color: #1053D4; padding-top: 15px; padding-bottom: 15px;">
+                <section >
+                    <div class="container px-3">
+                        <!-- Top Section -->
+                        <h3 class="fs-16 fs-md-20 fw-700 mb-2 mb-sm-0" style="margin: 20px 0;">
+                                <span class="inter-font" style="font-size: 48px; margin-bottom:20px;color:#ffffff">Your Health Partner, <br> Every Step of the Way.</span>
+                            </h3>
+                            <span style="color:#BCBCBC; margin: 20px 0; margin-bottom:40px;">Lorem ipsum dolor sit amet, <br> consectetur adipiscing elit, <br> 
+                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </span>
+
+
+                        <!-- Product Section -->
+                        <div class="px-sm-3">
+                            
+                        </div>
+                    </div>
+                </section>
+        </div>
+
+
+       
+
+        <div id="section_best_selling" style="background-color: #EDEDED; ">
+                <section >
+                    <div class="container px-3">
+                        <!-- Top Section -->
+                        <div class="d-flex mb-2 mb-md-3 mt-2 mt-md-3 align-items-baseline justify-content-between">
+                            <!-- Title -->
+                            <h3 class="fs-16 fs-md-20 fw-700 mb-2 mb-sm-0">
+                                <span class="">Best Selling</span>
+                            </h3>
+                            <!-- Links -->
+                            <!-- <div class="d-flex">
+                                <a type="button" class="arrow-prev slide-arrow link-disable text-secondary mr-2" onclick="clickToSlide('slick-prev','section_best_selling')"><i class="las la-angle-left fs-20 fw-600"></i></a>
+                                <a type="button" class="arrow-next slide-arrow text-secondary ml-2" onclick="clickToSlide('slick-next','section_best_selling')"><i class="las la-angle-right fs-20 fw-600"></i></a>
+                            </div> -->
+                        </div>
+
+                        
+                        <!-- Product Section -->
+                        <div class="px-sm-3">
+                            
+                        </div>
+                    </div>
+                </section>
+        </div>
+
+        <div id="section_best_selling" style="background-color: #EDEDED; ">
+                <section >
+                    <div class="container px-3">
+                        <!-- Top Section -->
+                        <div class="d-flex mb-2 mb-md-3 mt-2 mt-md-3 align-items-baseline justify-content-between">
+                            <!-- Title -->
+                            <!-- <h3 class="fs-16 fs-md-20 fw-700 mb-2 mb-sm-0">
+                                <span class="">Testimonials That <br> Inspire Us</span>
+                            </h3>
+                            <span>Lorem ipsum dolor sit amet, <br> consectetur adipiscing elit, <br> sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </span> -->
+                            <!-- Links -->
+                            <!-- <div class="d-flex">
+                                <a type="button" class="arrow-prev slide-arrow link-disable text-secondary mr-2" onclick="clickToSlide('slick-prev','section_best_selling')"><i class="las la-angle-left fs-20 fw-600"></i></a>
+                                <a type="button" class="arrow-next slide-arrow text-secondary ml-2" onclick="clickToSlide('slick-next','section_best_selling')"><i class="las la-angle-right fs-20 fw-600"></i></a>
+                            </div> -->
+                        </div>
+                        <h3 class="fs-16 fs-md-20 fw-700 mb-2 mb-sm-0">
+                                <span class="" style="color:#0D0D0D">Testimonials That <br> Inspire Us</span>
+                            </h3>
+                        <span style="color:#7A7A7A">Lorem ipsum dolor sit amet, <br> consectetur adipiscing elit, <br> 
+                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </span>
+                        <!-- Product Section -->
+                        <!-- <div class="px-sm-3">
+                            
+                        </div> -->
+                    </div>
+
+                    <!-- <div class="container">
+                        <div class="row">
+                            <div class="col-md-offset-1 col-md-10">
+                                <div id="testimonial-slider" class="owl-carousel">
+                                    <div class="testimonial">
+                                        <div class="pic">
+                                            <img src="images/img-1.jpg" alt="">
                                         </div>
-                                        @endif
-                                    @endforeach
+                                        <p class="description">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eu dolor eget ante pretium commodo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean purus sem, aliquam eget lorem at, efficitur mattis risus. Morbi efficitur molestie cursus. Etiam eget sodales lorem. Proin volutpat lectus at pulvinar consectetur. Aliquam erat volutpat. Sed.
+                                        </p>
+                                        <h3 class="testimonial-title">
+                                            Williamson
+                                            <small class="post">Web Developer</small>
+                                        </h3>
+                                    </div>
+                    
+                                    <div class="testimonial">
+                                        <div class="pic">
+                                            <img src="images/img-2.jpg" alt="">
+                                        </div>
+                                        <p class="description">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eu dolor eget ante pretium commodo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean purus sem, aliquam eget lorem at, efficitur mattis risus. Morbi efficitur molestie cursus. Etiam eget sodales lorem. Proin volutpat lectus at pulvinar consectetur. Aliquam erat volutpat. Sed.
+                                        </p>
+                                        <h3 class="testimonial-title">
+                                            kristiana
+                                            <small class="post">Web Designer</small>
+                                        </h3>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                @endif
 
-            </div>
+                     -->
+
+                </section>
         </div>
+
+
+        
+
+
+        </div>
+
     </div>
+
+        <div id="section_best_selling" style="background-color: #EDEDED; ">
+                <section >
+                    <div class="container px-3">
+                        <!-- Top Section -->
+                        <div class="d-flex mb-2 mb-md-3 mt-2 mt-md-3 align-items-baseline justify-content-between">
+                            <!-- Title -->
+                            <!-- <h3 class="fs-16 fs-md-20 fw-700 mb-2 mb-sm-0">
+                                <span class="">Testimonials That <br> Inspire Us</span>
+                            </h3>
+                            <span>Lorem ipsum dolor sit amet, <br> consectetur adipiscing elit, <br> sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </span> -->
+                            <!-- Links -->
+                            <!-- <div class="d-flex">
+                                <a type="button" class="arrow-prev slide-arrow link-disable text-secondary mr-2" onclick="clickToSlide('slick-prev','section_best_selling')"><i class="las la-angle-left fs-20 fw-600"></i></a>
+                                <a type="button" class="arrow-next slide-arrow text-secondary ml-2" onclick="clickToSlide('slick-next','section_best_selling')"><i class="las la-angle-right fs-20 fw-600"></i></a>
+                            </div> -->
+                        </div>
+                        <h3 class="fs-16 fs-md-20 fw-700 mb-2 mb-sm-0">
+                                <span class="" style="color:#0D0D0D">Have Questions ? <br> Contact Us</span>
+                            </h3>
+                        <span style="color:#7A7A7A">Lorem ipsum dolor sit amet, <br> consectetur adipiscing elit, <br> 
+                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </span>
+                        <!-- Product Section -->
+                        <!-- <div class="container"> -->
+                        <div class="row">
+                            <div class="col-md-6"  style="back-ground-color:#7A7A7A; padding:30px; border-radius:8px;">
+                                <div id="testimonial-slider" class="owl-carousel">
+                                    
+                    
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <!-- </div> -->
+                    </div>
+
+                    
+
+                    
+
+                </section>
+        </div>
+
 
     <!-- Banner section 1 -->
     @php $homeBanner1Images = get_setting('home_banner1_images', null, $lang);   @endphp
@@ -307,9 +770,9 @@
     @endif
 
     <!-- Featured Products -->
-    <div id="section_featured">
+    <!-- <div id="section_featured">
 
-    </div>
+    </div> -->
 
 
     @if (addon_is_activated('preorder'))
@@ -387,38 +850,9 @@
         </div>
     @endif
 
-    <!-- Best Selling  -->
-    <div id="section_best_selling">
 
-    </div>
 
-    <!-- Start of best selling -->
 
-        <!-- Best Selling  -->
-    <div id="section_best_selling">
-
-    </div>
-
-        <!-- Best Selling  -->
-    <div id="section_best_selling">
-
-    </div>
-
-        <!-- Best Selling  -->
-    <div id="section_best_selling">
-
-    </div>
-
-        <!-- Best Selling  -->
-    <div id="section_best_selling">
-
-    </div>
-    <!-- end of best selling -->
-
-    <!-- New Products -->
-    <div id="section_newest">
-
-    </div>
 
     <!-- Banner Section 3 -->
     @php $homeBanner3Images = get_setting('home_banner3_images', null, $lang);   @endphp
@@ -453,14 +887,14 @@
 
     <!-- Auction Product -->
     @if (addon_is_activated('auction'))
-        <div id="auction_products">
+        <!-- <div id="auction_products">
 
-        </div>
+        </div> -->
     @endif
 
     <!-- Cupon -->
     @if (get_setting('coupon_system') == 1)
-        <div class="" style="background-color: {{ get_setting('cupon_background_color', '#fff9ed') }}">
+        <!-- <div class="" style="background-color: {{ get_setting('cupon_background_color', '#fff9ed') }}">
             <div class="container">
                 <div class="position-relative py-5">
                     <div class="text-center text-xl-left position-relative z-5">
@@ -513,13 +947,13 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     @endif
 
     <!-- Category wise Products -->
-    <div id="section_home_categories">
+    <!-- <div id="section_home_categories">
 
-    </div>
+    </div> -->
 
 
     @if (addon_is_activated('preorder'))
@@ -776,5 +1210,13 @@
         </section>
     @endif
 
+
+
+
+
+
+    
+
 @endsection
+
 

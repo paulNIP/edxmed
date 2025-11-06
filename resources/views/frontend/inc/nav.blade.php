@@ -26,95 +26,99 @@
     @endif
 
     <!-- Top Bar -->
-    <div class="top-navbar bg-white z-1035 h-35px h-sm-auto">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 col">
-                    <ul class="list-inline d-flex justify-content-between justify-content-lg-start mb-0">
-                        <!-- Language switcher -->
-                        @if (get_setting('show_language_switcher') == 'on')
-                            <li class="list-inline-item dropdown mr-4" id="lang-change">
+    @if (Request::is('about-us'))
+    <!-- Nothing to show -->
+    @else
+        <div class="top-navbar bg-white z-1035 h-35px h-sm-auto">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col">
+                        <ul class="list-inline d-flex justify-content-between justify-content-lg-start mb-0">
+                            <!-- Language switcher -->
+                            @if (get_setting('show_language_switcher') == 'on')
+                                <li class="list-inline-item dropdown mr-4" id="lang-change">
 
-                                <a href="javascript:void(0)" class="dropdown-toggle text-secondary fs-12 py-2"
-                                    data-toggle="dropdown" data-display="static">
-                                    <span class="">{{ $system_language->name }}</span>
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-left">
-                                    @foreach (get_all_active_language() as $key => $language)
-                                        <li>
-                                            <a href="javascript:void(0)" data-flag="{{ $language->code }}"
-                                                class="dropdown-item @if ($system_language->code == $language->code) active @endif">
-                                                <img src="{{ asset('assets/img/placeholder.jpg') }}"
-                                                    data-src="{{ asset('assets/img/flags/' . $language->code . '.png') }}"
-                                                    class="mr-1 lazyload" alt="{{ $language->name }}" height="11">
-                                                <span class="language">{{ $language->name }}</span>
-                                            </a>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </li>
-                        @endif
+                                    <a href="javascript:void(0)" class="dropdown-toggle text-secondary fs-12 py-2"
+                                        data-toggle="dropdown" data-display="static">
+                                        <span class="">{{ $system_language->name }}</span>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-left">
+                                        @foreach (get_all_active_language() as $key => $language)
+                                            <li>
+                                                <a href="javascript:void(0)" data-flag="{{ $language->code }}"
+                                                    class="dropdown-item @if ($system_language->code == $language->code) active @endif">
+                                                    <img src="{{ asset('assets/img/placeholder.jpg') }}"
+                                                        data-src="{{ asset('assets/img/flags/' . $language->code . '.png') }}"
+                                                        class="mr-1 lazyload" alt="{{ $language->name }}" height="11">
+                                                    <span class="language">{{ $language->name }}</span>
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </li>
+                            @endif
 
-                        <!-- Currency Switcher -->
-                        @if (get_setting('show_currency_switcher') == 'on')
-                            <li class="list-inline-item dropdown ml-auto ml-lg-0 mr-0" id="currency-change">
-                                @php
-                                    $system_currency = get_system_currency();
-                                @endphp
+                            <!-- Currency Switcher -->
+                            @if (get_setting('show_currency_switcher') == 'on')
+                                <li class="list-inline-item dropdown ml-auto ml-lg-0 mr-0" id="currency-change">
+                                    @php
+                                        $system_currency = get_system_currency();
+                                    @endphp
 
-                                <a href="javascript:void(0)" class="dropdown-toggle text-secondary fs-12 py-2"
-                                    data-toggle="dropdown" data-display="static">
-                                    {{ $system_currency->name }}
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
-                                    @foreach (get_all_active_currency() as $key => $currency)
-                                        <li>
-                                            <a class="dropdown-item @if ($system_currency->code == $currency->code) active @endif"
-                                                href="javascript:void(0)"
-                                                data-currency="{{ $currency->code }}">{{ $currency->name }}
-                                                ({{ $currency->symbol }})</a>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </li>
-                        @endif
+                                    <a href="javascript:void(0)" class="dropdown-toggle text-secondary fs-12 py-2"
+                                        data-toggle="dropdown" data-display="static">
+                                        {{ $system_currency->name }}
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                        @foreach (get_all_active_currency() as $key => $currency)
+                                            <li>
+                                                <a class="dropdown-item @if ($system_currency->code == $currency->code) active @endif"
+                                                    href="javascript:void(0)"
+                                                    data-currency="{{ $currency->code }}">{{ $currency->name }}
+                                                    ({{ $currency->symbol }})</a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </li>
+                            @endif
 
-                    </ul>
-                </div>
+                        </ul>
+                    </div>
 
-                <div class="col-6 text-right d-none d-lg-block">
-                    <ul class="list-inline mb-0 h-100 d-flex justify-content-end align-items-center">
-                        @if (get_setting('vendor_system_activation') == 1)
-                            <!-- Become a Seller -->
-                            <li class="list-inline-item mr-0 pl-0 py-2">
-                                <a href="{{ route(get_setting('seller_registration_verify') === '1' ? 'shop-reg.verification' : 'shops.create') }}"
-                                    class="text-secondary fs-12 pr-3 d-inline-block border-width-2 border-right">{{ translate('Become a Seller !') }}</a>
-                            </li>
-                            {{-- <li class="list-inline-item mr-0 pl-0 py-2">
-                                <a href="{{ route('shops.create') }}"
-                                    class="text-secondary fs-12 pr-3 d-inline-block border-width-2 border-right">{{ translate('Become a Seller !') }}</a>
-                            </li> --}}
-                            <!-- Seller Login -->
-                            <li class="list-inline-item mr-0 pl-0 py-2">
-                                <a href="{{ route('seller.login') }}"
-                                    class="text-secondary fs-12 pl-3 d-inline-block">{{ translate('Login to Seller') }}</a>
-                            </li>
-                        @endif
-                        @if (get_setting('helpline_number'))
-                            <!-- Helpline -->
-                            <li class="list-inline-item ml-3 pl-3 mr-0 pr-0">
-                                <a href="tel:{{ get_setting('helpline_number') }}"
-                                    class="text-secondary fs-12 d-inline-block py-2">
-                                    <span>{{ translate('Helpline') }}</span>
-                                    <span>{{ get_setting('helpline_number') }}</span>
-                                </a>
-                            </li>
-                        @endif
-                    </ul>
+                    <div class="col-6 text-right d-none d-lg-block">
+                        <ul class="list-inline mb-0 h-100 d-flex justify-content-end align-items-center">
+                            @if (get_setting('vendor_system_activation') == 1)
+                                <!-- Become a Seller -->
+                                <li class="list-inline-item mr-0 pl-0 py-2">
+                                    <a href="{{ route(get_setting('seller_registration_verify') === '1' ? 'shop-reg.verification' : 'shops.create') }}"
+                                        class="text-secondary fs-12 pr-3 d-inline-block border-width-2 border-right">{{ translate('Become a Seller !') }}</a>
+                                </li>
+                                {{-- <li class="list-inline-item mr-0 pl-0 py-2">
+                                    <a href="{{ route('shops.create') }}"
+                                        class="text-secondary fs-12 pr-3 d-inline-block border-width-2 border-right">{{ translate('Become a Seller !') }}</a>
+                                </li> --}}
+                                <!-- Seller Login -->
+                                <li class="list-inline-item mr-0 pl-0 py-2">
+                                    <a href="{{ route('seller.login') }}"
+                                        class="text-secondary fs-12 pl-3 d-inline-block">{{ translate('Login to Seller') }}</a>
+                                </li>
+                            @endif
+                            @if (get_setting('helpline_number'))
+                                <!-- Helpline -->
+                                <li class="list-inline-item ml-3 pl-3 mr-0 pr-0">
+                                    <a href="tel:{{ get_setting('helpline_number') }}"
+                                        class="text-secondary fs-12 d-inline-block py-2">
+                                        <span>{{ translate('Helpline') }}</span>
+                                        <span>{{ get_setting('helpline_number') }}</span>
+                                    </a>
+                                </li>
+                            @endif
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endif
 
     <header class="@if (get_setting('header_stikcy') == 'on') sticky-top @endif z-1020 bg-white">
         <!-- Search Bar -->
@@ -150,7 +154,10 @@
                             @endif
                         </a>
                     </div>
-                    <!-- Search Icon for small device -->
+                    @if (Request::is('about-us'))
+                    <!-- Nothing to show -->
+                    @else  
+                        <!-- Search Icon for small device -->
                     <div class="d-lg-none ml-auto mr-0">
                         <a class="p-2 d-block text-reset" href="javascript:void(0);" data-toggle="class-toggle"
                             data-target=".front-header-search">
@@ -188,34 +195,34 @@
                                     </div>
                                 </div>
                             </form>
-                            <div class="typed-search-box stop-propagation document-click-d-none d-none bg-white rounded shadow-lg position-absolute left-0 top-100 w-100"
-                                style="min-height: 200px">
-                                <div class="search-preloader absolute-top-center">
-                                    <div class="dot-loader">
-                                        <div></div>
-                                        <div></div>
-                                        <div></div>
+                                <div class="typed-search-box stop-propagation document-click-d-none d-none bg-white rounded shadow-lg position-absolute left-0 top-100 w-100"
+                                    style="min-height: 200px">
+                                    <div class="search-preloader absolute-top-center">
+                                        <div class="dot-loader">
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="search-nothing d-none p-3 text-center fs-16">
+                                    <div class="search-nothing d-none p-3 text-center fs-16">
 
-                                </div>
-                                <div id="search-content" class="text-left">
+                                    </div>
+                                    <div id="search-content" class="text-left">
 
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- Search box -->
-                    <div class="d-none d-lg-none ml-3 mr-0">
-                        <div class="nav-search-box">
-                            <a href="#" class="nav-box-link">
-                                <i class="la la-search la-flip-horizontal d-inline-block nav-box-icon"></i>
-                            </a>
-                        </div>
-                    </div>
+                        <!-- Search box -->
+                        <div class="d-none d-lg-none ml-3 mr-0">
+                            <div class="nav-search-box">
+                                <a href="#" class="nav-box-link">
+                                    <i class="la la-search la-flip-horizontal d-inline-block nav-box-icon"></i>
+                                </a>
+                            </div>
+                        </div> 
 
-                    @if (Auth::check() && auth()->user()->user_type == 'customer')
+                                            @if (Auth::check() && auth()->user()->user_type == 'customer')
                         <!-- Compare -->
                         <div class="d-none d-lg-block ml-3 mr-0">
                             <div class="" id="compare">
@@ -339,47 +346,101 @@
                             </li>
                         </ul>
                     @endif
+                    @endif
+                    
+  
+
+
 
                     <div class="d-none d-xl-block ml-auto mr-0">
-                        @auth
-                            <span
-                                class="d-flex align-items-center nav-user-info py-20px @if (isAdmin()) ml-5 @endif"
-                                id="nav-user-info">
-                                <!-- Image -->
-                                <span
-                                    class="size-40px rounded-circle overflow-hidden border border-transparent nav-user-img">
-                                    @if ($user->avatar_original != null)
-                                        <img src="{{ $user_avatar }}"
-                                            class="img-fit h-100" alt="{{ translate('avatar') }}"
-                                            onerror="this.onerror=null;this.src='{{ asset('assets/img/avatar-place.png') }}';">
-                                    @else
-                                        <img src="{{ asset('assets/img/avatar-place.png') }}" class="image" alt="{{ translate('avatar') }}"
-                                            onerror="this.onerror=null;this.src='{{ asset('assets/img/avatar-place.png') }}';">
-                                    @endif
-                                </span>
-                                <!-- Name -->
-                                <h4 class="h5 fs-14 fw-700 text-dark ml-2 mb-0">{{ $user->name }}</h4>
-                            </span>
-                        @else
+                        
+
+
+                        @if (Request::is('about-us'))
+                            <!-- Nothing to show -->
                             <!--Login & Registration -->
                             <span class="d-flex align-items-center nav-user-info ml-3">
                                 <!-- Image -->
-                                <span
-                                    class="size-40px rounded-circle overflow-hidden border d-flex align-items-center justify-content-center nav-user-img">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="19.902" height="20.012"
-                                        viewBox="0 0 19.902 20.012">
-                                        <path id="fe2df171891038b33e9624c27e96e367"
-                                            d="M15.71,12.71a6,6,0,1,0-7.42,0,10,10,0,0,0-6.22,8.18,1.006,1.006,0,1,0,2,.22,8,8,0,0,1,15.9,0,1,1,0,0,0,1,.89h.11a1,1,0,0,0,.88-1.1,10,10,0,0,0-6.25-8.19ZM12,12a4,4,0,1,1,4-4A4,4,0,0,1,12,12Z"
-                                            transform="translate(-2.064 -1.995)" fill="#91919b" />
-                                    </svg>
-                                </span>
+                            
                                 <a href="{{ route('user.login') }}"
-                                    class="text-reset opacity-60 hov-opacity-100 hov-text-primary fs-12 d-inline-block border-right border-soft-light border-width-2 pr-2 ml-3">{{ translate('Login') }}</a>
+                                    class="text-reset opacity-60 hov-opacity-100 hov-text-primary fs-12 d-inline-block border-right border-soft-light border-width-2 pr-2 ml-3">{{ translate('Home') }}</a>
                                 <a href="{{ route(get_setting('customer_registration_verify') === '1' ? 'registration.verification' : 'user.registration') }}"
-                                {{-- <a href="{{ route('user.registration') }}" --}}
-                                    class="text-reset opacity-60 hov-opacity-100 hov-text-primary fs-12 d-inline-block py-2 pl-2">{{ translate('Registration') }}</a>
+                                
+                                    class="text-reset opacity-60 hov-opacity-100 hov-text-primary fs-12 d-inline-block py-2 pl-2">{{ translate('About Us') }}</a>
+
+                                     <a href="{{ route(get_setting('customer_registration_verify') === '1' ? 'registration.verification' : 'user.registration') }}"
+                                
+                                    class="text-reset opacity-60 hov-opacity-100 hov-text-primary fs-12 d-inline-block py-2 pl-2">{{ translate('Products') }}</a>
+
+                                     <a href="{{ route(get_setting('customer_registration_verify') === '1' ? 'registration.verification' : 'user.registration') }}"
+                                
+                                    class="text-reset opacity-60 hov-opacity-100 hov-text-primary fs-12 d-inline-block py-2 pl-2">{{ translate('Services') }}</a>
+
+                                     <a href="{{ route(get_setting('customer_registration_verify') === '1' ? 'registration.verification' : 'user.registration') }}"
+                                
+                                    class="text-reset opacity-60 hov-opacity-100 hov-text-primary fs-12 d-inline-block py-2 pl-2">{{ translate('Pricing') }}</a>
+
+                                     <a href="{{ route(get_setting('customer_registration_verify') === '1' ? 'registration.verification' : 'user.registration') }}"
+                                
+                                    class="text-reset opacity-60 hov-opacity-100 hov-text-primary fs-12 d-inline-block py-2 pl-2">{{ translate('Contact Us') }}</a>
+
+                                    <a href="{{ route(get_setting('customer_registration_verify') === '1' ? 'registration.verification' : 'user.registration') }}"
+                                
+                                    class="text-reset opacity-60 hov-opacity-100 hov-text-primary fs-12 d-inline-block py-2 pl-2" 
+                                        style="display: inline-block;         
+                                        background-color: #007BFF;     
+                                        color: white;                  
+                                        padding: 10px 20px;            
+                                        border-radius: 19px;            
+                                        text-decoration: none;         
+                                        font-weight: 500;
+                                        transition: background 0.3s;"
+                                    >{{ translate('+256 787856909') }}  👉 </a>
+
+
                             </span>
-                        @endauth
+                        @else
+                            @auth
+                                <span
+                                    class="d-flex align-items-center nav-user-info py-20px @if (isAdmin()) ml-5 @endif"
+                                    id="nav-user-info">
+                                    <!-- Image -->
+                                    <span
+                                        class="size-40px rounded-circle overflow-hidden border border-transparent nav-user-img">
+                                        @if ($user->avatar_original != null)
+                                            <img src="{{ $user_avatar }}"
+                                                class="img-fit h-100" alt="{{ translate('avatar') }}"
+                                                onerror="this.onerror=null;this.src='{{ asset('assets/img/avatar-place.png') }}';">
+                                        @else
+                                            <img src="{{ asset('assets/img/avatar-place.png') }}" class="image" alt="{{ translate('avatar') }}"
+                                                onerror="this.onerror=null;this.src='{{ asset('assets/img/avatar-place.png') }}';">
+                                        @endif
+                                    </span>
+                                    <!-- Name -->
+                                    <h4 class="h5 fs-14 fw-700 text-dark ml-2 mb-0">{{ $user->name }}</h4>
+                                </span>
+                            @else
+                                <!--Login & Registration -->
+                                <span class="d-flex align-items-center nav-user-info ml-3">
+                                    <!-- Image -->
+                                    <span
+                                        class="size-40px rounded-circle overflow-hidden border d-flex align-items-center justify-content-center nav-user-img">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="19.902" height="20.012"
+                                            viewBox="0 0 19.902 20.012">
+                                            <path id="fe2df171891038b33e9624c27e96e367"
+                                                d="M15.71,12.71a6,6,0,1,0-7.42,0,10,10,0,0,0-6.22,8.18,1.006,1.006,0,1,0,2,.22,8,8,0,0,1,15.9,0,1,1,0,0,0,1,.89h.11a1,1,0,0,0,.88-1.1,10,10,0,0,0-6.25-8.19ZM12,12a4,4,0,1,1,4-4A4,4,0,0,1,12,12Z"
+                                                transform="translate(-2.064 -1.995)" fill="#91919b" />
+                                        </svg>
+                                    </span>
+                                    <a href="{{ route('user.login') }}"
+                                        class="text-reset opacity-60 hov-opacity-100 hov-text-primary fs-12 d-inline-block border-right border-soft-light border-width-2 pr-2 ml-3">{{ translate('Login') }}</a>
+                                    <a href="{{ route(get_setting('customer_registration_verify') === '1' ? 'registration.verification' : 'user.registration') }}"
+                                    {{-- <a href="{{ route('user.registration') }}" --}}
+                                        class="text-reset opacity-60 hov-opacity-100 hov-text-primary fs-12 d-inline-block py-2 pl-2">{{ translate('Registration') }}</a>
+                                </span>
+                            @endauth
+
+                        @endif
                     </div>
                 </div>
             </div>
@@ -593,6 +654,11 @@
             </div>
         </div>
 
+
+
+        @if (Request::is('about-us'))
+         <!-- Nothing to show -->
+        @else
         <!-- Menu Bar -->
         <div class="d-none d-lg-block position-relative bg-primary h-50px">
             <div class="container h-100">
@@ -656,6 +722,8 @@
                 </div>
             </div>
         </div>
+
+        @endif
     </header>
 
     <!-- Top Menu Sidebar -->

@@ -58,6 +58,18 @@ class HomeController extends Controller
         return view('frontend.' . get_setting('homepage_select') . '.index', compact('featured_categories', 'lang'));
     }
 
+    public function about()
+    {
+        // $route = route(get_setting('customer_registration_verify') === '1' ? 'registration.verification' : 'user.registration'); 
+        // dd( $route );
+        $lang = get_system_language() ? get_system_language()->code : null;
+        $featured_categories = Cache::rememberForever('featured_categories', function () {
+            return Category::with('bannerImage')->where('featured', 1)->get();
+        });
+
+        return view('frontend.reclassic.about-us', compact('featured_categories', 'lang'));
+    }
+
     public function load_todays_deal_section()
     {
         $todays_deal_products = filter_products(Product::where('todays_deal', '1'))->orderBy('id', 'desc')->get();

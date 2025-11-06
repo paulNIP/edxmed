@@ -89,6 +89,14 @@
 							{{ translate('New Products') }}
 						</a>
 					</li>
+					
+					<li class="nav-item">
+						<a class="nav-link" id="new-products-tab" href="#new_products"
+							data-toggle="tab" data-target="#new_products" type="button" role="tab" aria-controls="new_products" aria-selected="false">
+							{{ translate('New Products') }}
+						</a>
+					</li>
+
 					<!-- Banner Level 3 -->
 					<li class="nav-item">
 						<a class="nav-link" id="banner-3-tab" href="#banner_3"

@@ -1636,6 +1636,17 @@ if (!function_exists('get_featured_flash_deal')) {
 
         return $featured_flash_deal;
     }
+
+    function get_all_promotional_flash_deal()
+    {
+        $flash_deal_query = FlashDeal::query();
+        $featured_flash_deal = $flash_deal_query->isActiveAndFeatured()
+            ->where('start_date', '<=', strtotime(date('Y-m-d H:i:s')))
+            ->where('end_date', '>=', strtotime(date('Y-m-d H:i:s')))
+            ->first();
+
+        return $featured_flash_deal;
+    }
 }
 
 if (!function_exists('get_flash_deal_products')) {

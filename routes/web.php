@@ -135,6 +135,8 @@ Route::controller(HomeController::class)->group(function () {
     //Home Page
     Route::get('/', 'index')->name('home');
 
+    Route::get('/about-us', 'about')->name('about');
+
     Route::post('/home/section/featured', 'load_featured_section')->name('home.section.featured');
     Route::post('/home/section/todays-deal', 'load_todays_deal_section')->name('home.section.todays_deal');
     Route::post('/home/section/best-selling', 'load_best_selling_section')->name('home.section.best_selling');
