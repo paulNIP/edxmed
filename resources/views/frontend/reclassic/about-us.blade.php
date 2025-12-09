@@ -1017,7 +1017,7 @@
                                                         class="d-block rounded-2 overflow-hidden h-auto h-md-150px text-center">
                                                         <img class="img-fluid lazyload mx-auto has-transition"
                                                             src="{{ asset('assets/img/placeholder.jpg') }}"
-                                                            data-src="{{ isset($classified_product->thumbnail->file_name) ? my_asset($classified_product->thumbnail->file_name) : asset('assets/img/placeholder.jpg') }}"
+                                                            data-src="{{ isset($classified_product->thumbnail->file_name) ? asset($classified_product->thumbnail->file_name) : asset('assets/img/placeholder.jpg') }}"
                                                             alt="{{ $classified_product->getTranslation('name') }}"
                                                             onerror="this.onerror=null;this.src='{{ asset('assets/img/placeholder.jpg') }}';">
                                                     </a>

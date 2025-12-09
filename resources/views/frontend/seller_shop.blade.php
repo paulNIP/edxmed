@@ -250,7 +250,7 @@
                             <div class="carousel-box w-100 h-140px h-md-300px h-xl-450px">
                                 <a href="{{ isset($shop_slider_links[$key]) ? $shop_slider_links[$key] : '' }}">
                                     <img class="d-block lazyload h-100 img-fit" 
-                                        src="{{ $slider ? my_asset($slider->file_name) : asset('assets/img/placeholder.jpg') }}"
+                                        src="{{ $slider ? asset($slider->file_name) : asset('assets/img/placeholder.jpg') }}"
                                         onerror="this.onerror=null;this.src='{{ asset('assets/img/placeholder-rect.jpg') }}';"
                                         alt="{{ $key }} offer">
                                 </a>
@@ -305,7 +305,7 @@
                     <div class="w-100">
                         <a href="{{ isset($shop_banner_full_width_1_links[$key]) ? $shop_banner_full_width_1_links[$key] : '' }}">
                             <img class="d-block lazyload h-100 img-fit"
-                                src="{{ $banner ? my_asset($banner->file_name) : asset('assets/img/placeholder.jpg') }}"
+                                src="{{ $banner ? asset($banner->file_name) : asset('assets/img/placeholder.jpg') }}"
                                 onerror="this.onerror=null;this.src='{{ asset('assets/img/placeholder-rect.jpg') }}';"
                                 alt="{{ env('APP_NAME') }} banner">
                         </a>
@@ -327,7 +327,7 @@
                         <div class="w-100">
                             <a href="{{ isset($shop_banners_half_width_links[$key]) ? $shop_banners_half_width_links[$key] : '' }}">
                                 <img class="d-block lazyload h-100 img-fit"
-                                    src="{{ $banner ? my_asset($banner->file_name) : asset('assets/img/placeholder.jpg') }}"
+                                    src="{{ $banner ? asset($banner->file_name) : asset('assets/img/placeholder.jpg') }}"
                                     onerror="this.onerror=null;this.src='{{ asset('assets/img/placeholder-rect.jpg') }}';"
                                     alt="{{ env('APP_NAME') }} banner">
                             </a>
@@ -399,7 +399,7 @@
                         <div class="mt-3 mb-3 w-100">
                             <a href="{{ isset($shop_banner_full_width_2_links[$key]) ? $shop_banner_full_width_2_links[$key] : '' }}">
                                 <img class="d-block lazyload h-100 img-fit"
-                                    src="{{ $banner ? my_asset($banner->file_name) : asset('assets/img/placeholder.jpg') }}"
+                                    src="{{ $banner ? asset($banner->file_name) : asset('assets/img/placeholder.jpg') }}"
                                     onerror="this.onerror=null;this.src='{{ asset('assets/img/placeholder-rect.jpg') }}';"
                                     alt="{{ env('APP_NAME') }} banner">
                             </a>

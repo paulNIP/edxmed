@@ -35,7 +35,7 @@
                                     <!-- Image -->
                                     <div class="d-block mw-100 img-fit overflow-hidden h-180px h-md-320px h-lg-460px h-xl-553px overflow-hidden">
                                         <img class="img-fit h-100 m-auto has-transition ls-is-cached lazyloaded"
-                                        src="{{ $slider ? my_asset($slider->file_name) : asset('assets/img/placeholder.jpg') }}"
+                                        src="{{ $slider ? asset($slider->file_name) : asset('assets/img/placeholder.jpg') }}"
                                         alt="{{ env('APP_NAME') }} promo"
                                         onerror="this.onerror=null;this.src='{{ asset('assets/img/placeholder-rect.jpg') }}';">
                                     </div>
@@ -216,7 +216,7 @@
                                 <div class="h-200px h-sm-250px h-md-340px">
                                     <div class="h-100 w-100 w-xl-auto position-relative hov-scale-img overflow-hidden">
                                         <div class="position-absolute h-100 w-100 overflow-hidden">
-                                            <img src="{{ isset($category->coverImage->file_name) ? my_asset($category->coverImage->file_name) : asset('assets/img/placeholder.jpg') }}"
+                                            <img src="{{ isset($category->coverImage->file_name) ? asset($category->coverImage->file_name) : asset('assets/img/placeholder.jpg') }}"
                                                 alt="{{ $category_name }}"
                                                 class="img-fit h-100 has-transition"
                                                 onerror="this.onerror=null;this.src='{{ asset('assets/img/placeholder.jpg') }}';">
@@ -550,7 +550,7 @@
                                                     class="d-block overflow-hidden h-auto h-md-150px text-center">
                                                     <img class="img-fluid lazyload mx-auto has-transition"
                                                         src="{{ asset('assets/img/placeholder.jpg') }}"
-                                                        data-src="{{ isset($classified_product->thumbnail->file_name) ? my_asset($classified_product->thumbnail->file_name) : asset('assets/img/placeholder.jpg') }}"
+                                                        data-src="{{ isset($classified_product->thumbnail->file_name) ? asset($classified_product->thumbnail->file_name) : asset('assets/img/placeholder.jpg') }}"
                                                         alt="{{ $classified_product->getTranslation('name') }}"
                                                         onerror="this.onerror=null;this.src='{{ asset('assets/img/placeholder.jpg') }}';">
                                                 </a>

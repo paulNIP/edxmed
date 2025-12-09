@@ -919,7 +919,7 @@
                         @if ($order->user->avatar != null)
                             <img src="{{ uploaded_asset($order->user->avatar_original) }}">
                         @else
-                            <img src="{{ my_asset('assets/frontend/default/img/avatar-place.png') }}0"
+                            <img src="{{ asset('assets/frontend/default/img/avatar-place.png') }}0"
                                 onerror="this.onerror=null;this.src='{{ asset('/assets/img/avatar-place.png') }}';">
                         @endif
                     </span>

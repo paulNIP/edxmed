@@ -38,13 +38,127 @@
                     <tr>
                         <td>{{ ($key+1) + ($categories->currentPage() - 1)*$categories->perPage() }}</td>
                         <td>
-                            @if($category->icon != null)
+                            <!-- @if($category->icon != null)
                                 <span class="avatar avatar-square avatar-xs">
                                     <img src="{{ uploaded_asset($category->icon) }}" alt="{{translate('icon')}}">
                                 </span>
                             @else
                                 —
                             @endif
+
+                            @if($category->getTranslation('name') == 1)
+                                <span class="avatar avatar-square avatar-xs">
+                                    <img src="{{ uploaded_asset($category->icon) }}" alt="{{translate('icon')}}">
+                                </span>
+                            @endif -->
+
+
+            @if ($category->getTranslation('name') === 'Diagnostic Equipment')
+                        <span class="cat-name has-transition">🔍</span> 
+
+            @elseif ($category->getTranslation('name') === 'Surgical Instruments')
+
+                        <span class="cat-name has-transition">🏥</span>
+
+            @elseif ($category->getTranslation('name') === 'Personal Protective Equipment (PPE)')
+ 
+                        <span class="cat-name has-transition">🧤</span>
+
+            @elseif ($category->getTranslation('name') === 'Rehab Equipment')
+                
+                         <span class="cat-name has-transition">♿</span>
+                        
+            @elseif ($category->getTranslation('name') === 'Consumables')
+                
+                        <span class="cat-name has-transition">🧪</span> 
+
+            @elseif ($category->getTranslation('name') === 'Hospital Furniture')
+                
+                        <span class="cat-name has-transition">🛏️</span> 
+
+            @elseif ($category->getTranslation('name') === 'Laboratory Equipment')
+                
+                        <span class="cat-name has-transition">🔬</span>
+
+            @elseif ($category->getTranslation('name') === 'Emergency Products')
+                
+                        <span class="cat-name has-transition">🚑</span> 
+
+            @elseif ($category->getTranslation('name') === 'Monitoring Equipment')
+
+                        <span class="cat-name has-transition">📊</span> 
+
+            @elseif ($category->getTranslation('name') === 'Pharmaceuticals')
+ 
+                        <span class="cat-name has-transition">💊</span>
+
+            @elseif ($category->getTranslation('name') === 'Home Health Care')
+                
+                        <span class="cat-name has-transition">🏡</span>
+
+            @elseif ($category->getTranslation('name') === 'Orthopedic Devices')
+
+                        <span class="cat-name has-transition">🦿</span>
+            
+            @elseif ($category->getTranslation('name') === 'Medical Software')
+                        <span class='cat-name has-transition'>💻</span>
+            @elseif ($category->getTranslation('name') === 'Basic Diagnostics')
+                        <span class='cat-name has-transition'>🔍</span>
+            @elseif ($category->getTranslation('name') === 'Imaging Diagnostics')
+                        <span class='cat-name has-transition'>🩻</span>
+            @elseif ($category->getTranslation('name') === 'General Surgery Tools')
+                        <span class='cat-name has-transition'>🔪</span>
+            @elseif ($category->getTranslation('name') === 'Operating Room Equipment')
+                        <span class='cat-name has-transition'>🏥</span>
+            @elseif ($category->getTranslation('name') === 'Protective Wear')
+                        <span class='cat-name has-transition'>🧤</span>
+            @elseif ($category->getTranslation('name') === 'Safety Gear')
+                        <span class='cat-name has-transition'>🦺</span>
+            @elseif ($category->getTranslation('name') === 'Mobility Aids')
+                        <span class='cat-name has-transition'>🦽</span>
+            @elseif ($category->getTranslation('name') === 'Therapy Devices')
+                        <span class='cat-name has-transition'>🧘‍♂️</span>
+            @elseif ($category->getTranslation('name') === 'Clinical Consumables')
+                        <span class='cat-name has-transition'>🩹</span>
+            @elseif ($category->getTranslation('name') === 'Lab Consumables')
+                        <span class='cat-name has-transition'>🧪</span>
+            @elseif ($category->getTranslation('name') === 'Ward Furniture')
+                        <span class='cat-name has-transition'>🛏️</span>
+            @elseif ($category->getTranslation('name') === 'Clinical Furniture')
+                        <span class='cat-name has-transition'>🪑</span>
+            @elseif ($category->getTranslation('name') === 'Testing Machines')
+                        <span class='cat-name has-transition'>🧬</span>
+            @elseif ($category->getTranslation('name') === 'Lab Tools')
+                        <span class='cat-name has-transition'>🔬</span>
+            @elseif ($category->getTranslation('name') === 'First Aid')
+                        <span class='cat-name has-transition'>🚑</span>
+            @elseif ($category->getTranslation('name') === 'Critical Response')
+                        <span class='cat-name has-transition'>🚨</span>
+            @elseif ($category->getTranslation('name') === 'Patient Monitoring')
+                        <span class='cat-name has-transition'>📊</span>
+            @elseif ($category->getTranslation('name') === 'Life Support')
+                        <span class='cat-name has-transition'>🫁</span>
+            @elseif ($category->getTranslation('name') === 'Medicines')
+                        <span class='cat-name has-transition'>💊</span>
+            @elseif ($category->getTranslation('name') === 'Vaccines/Solutions')
+                        <span class='cat-name has-transition'>🧪</span>
+            @elseif ($category->getTranslation('name') === 'Home Monitoring')
+                        <span class='cat-name has-transition'>🏠</span>
+            @elseif ($category->getTranslation('name') === 'Home Therapies')
+                        <span class='cat-name has-transition'>🏠</span>
+            @elseif ($category->getTranslation('name') === 'Braces & Supports')
+                        <span class='cat-name has-transition'>🦵</span>
+            @elseif ($category->getTranslation('name') === 'Implants & Prosthetics')
+                        <span class='cat-name has-transition'>🦾</span>
+            @elseif ($category->getTranslation('name') === 'Hospital Systems')
+                        <span class='cat-name has-transition'>🏥</span>
+            @elseif ($category->getTranslation('name') === 'Telemedicine')
+                        <span class='cat-name has-transition'>📞</span>
+                        
+            @else
+            
+
+            @endif
                         </td>
                         <td class="align-items-center d-flex fw-800">
                             {{ $category->getTranslation('name') }}

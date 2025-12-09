@@ -1,0 +1,1 @@
+https://www.ehealthlicense.go.ug/. HEALTH PROFESSIONALS PORTAL UGANDA

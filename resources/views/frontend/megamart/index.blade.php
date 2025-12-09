@@ -54,7 +54,7 @@
                             <div class="carousel-box px-4 d-flex flex-column align-items-center">
                                 <div class="size-80px overflow-hidden hov-scale-img">
                                     <a class="d-block" href="{{ route('products.category', $category->slug) }}">
-                                        <img src="{{ isset($category->bannerImage->file_name) ? my_asset($category->bannerImage->file_name) : asset('assets/img/placeholder.jpg') }}"
+                                        <img src="{{ isset($category->bannerImage->file_name) ? asset($category->bannerImage->file_name) : asset('assets/img/placeholder.jpg') }}"
                                             class="lazyload img-fit h-100 mx-auto has-transition"
                                             alt="{{ $category->getTranslation('name') }}"
                                             onerror="this.onerror=null;this.src='{{ asset('assets/img/placeholder.jpg') }}';">
@@ -93,7 +93,7 @@
                                     <!-- Image -->
                                     <div class="d-block mw-100 img-fit overflow-hidden h-180px h-sm-200px h-md-250px h-lg-300px h-xl-370px overflow-hidden">
                                         <img class="img-fit h-100 m-auto has-transition ls-is-cached lazyloaded"
-                                        src="{{ $slider ? my_asset($slider->file_name) : asset('assets/img/placeholder.jpg') }}"
+                                        src="{{ $slider ? asset($slider->file_name) : asset('assets/img/placeholder.jpg') }}"
                                         alt="{{ env('APP_NAME') }} promo"
                                         onerror="this.onerror=null;this.src='{{ asset('assets/img/placeholder-rect.jpg') }}';">
                                     </div>
@@ -682,7 +682,7 @@
                                                 class="d-block overflow-hidden h-140px h-md-170px text-center hov-scale-img mb-3">
                                                 <img class="img-fluid lazyload mx-auto has-transition"
                                                     src="{{ asset('assets/img/placeholder.jpg') }}"
-                                                    data-src="{{ isset($classified_product->thumbnail->file_name) ? my_asset($classified_product->thumbnail->file_name) : asset('assets/img/placeholder.jpg') }}"
+                                                    data-src="{{ isset($classified_product->thumbnail->file_name) ? asset($classified_product->thumbnail->file_name) : asset('assets/img/placeholder.jpg') }}"
                                                     alt="{{ $classified_product->getTranslation('name') }}"
                                                     onerror="this.onerror=null;this.src='{{ asset('assets/img/placeholder.jpg') }}';">
                                             </a>

@@ -1191,13 +1191,13 @@ if (!function_exists('uploaded_asset')) {
     function uploaded_asset($id)
     {
         if (($asset = Upload::find($id)) != null) {
-            return $asset->external_link == null ? my_asset($asset->file_name) : $asset->external_link;
+            return $asset->external_link == null ? asset($asset->file_name) : $asset->external_link;
         }
         return asset('assets/img/placeholder.jpg');
     }
 }
 
-if (!function_exists('my_asset')) {
+if (!function_exists('asset')) {
     /**
      * Generate an asset path for the application.
      *
@@ -1205,7 +1205,7 @@ if (!function_exists('my_asset')) {
      * @param bool|null $secure
      * @return string
      */
-    function my_asset($path, $secure = null)
+    function asset($path, $secure = null)
     {
         if (config('filesystems.default') != 'local') {
             return Storage::disk(config('filesystems.default'))->url($path);
@@ -2456,7 +2456,7 @@ if (!function_exists('get_image')) {
     {
         $image_url = asset('assets/img/placeholder.jpg');
         if ($image != null) {
-            $image_url = $image->external_link == null ? my_asset($image->file_name) : $image->external_link;
+            $image_url = $image->external_link == null ? asset($image->file_name) : $image->external_link;
         }
         return $image_url;
     }

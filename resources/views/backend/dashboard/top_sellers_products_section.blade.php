@@ -37,7 +37,7 @@
                         @php
                             $product_img = null;
                             if($row->thumbnail){
-                                $product_img = ($row->thumbnail->external_link == null) ? my_asset($row->thumbnail->file_name) : $row->thumbnail->external_link;
+                                $product_img = ($row->thumbnail->external_link == null) ? asset($row->thumbnail->file_name) : $row->thumbnail->external_link;
                             }
                             $product_url = route('product', $row->product_slug);
                             if ($row->auction_product == 1) {

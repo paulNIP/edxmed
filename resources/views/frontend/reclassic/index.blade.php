@@ -65,7 +65,7 @@
                                         <a class="d-block" href="{{ isset(json_decode($home_slider_links, true)[$key]) ? json_decode($home_slider_links, true)[$key] : '' }}">
                                             <img
                                                 class="d-block mw-100 img-fit h-180px h-md-320px @if(count($featured_categories) == 0) h-lg-530px @else h-lg-350px @endif"
-                                                src="{{ $slider ? my_asset($slider->file_name) : asset('assets/img/placeholder.jpg') }}"
+                                                src="{{ $slider ? asset($slider->file_name) : asset('assets/img/placeholder.jpg') }}"
                                                 alt="{{ env('APP_NAME')}} promo"
                                                 onerror="this.onerror=null;this.src='{{ asset('assets/img/placeholder-rect.jpg') }}';"
                                             >
@@ -89,7 +89,7 @@
                                         <div class="d-flex flex-column align-items-center overflow-hidden" style="width: 110px; height: 155px;border-radius: 8px;background: #f5f6f7; box-shadow: 0px 0px 25px -15px rgba(171,169,171,1);">
                                             <div class="overflow-hidden hov-scale-img" style="width: 110px; height:100px; min-height:100px;">
                                                 <a class="d-block h-100" href="{{ route('products.category', $category->slug) }}">
-                                                    <img src="{{ isset($category->bannerImage->file_name) ? my_asset($category->bannerImage->file_name) : asset('assets/img/placeholder.jpg') }}"
+                                                    <img src="{{ isset($category->bannerImage->file_name) ? asset($category->bannerImage->file_name) : asset('assets/img/placeholder.jpg') }}"
                                                         class="lazyload img-fit h-100 mx-auto has-transition"
                                                         alt="{{ $category->getTranslation('name') }}"
                                                         onerror="this.onerror=null;this.src='{{ asset('assets/img/placeholder.jpg') }}';">
@@ -583,7 +583,7 @@
                                                         class="d-block rounded-2 overflow-hidden h-auto h-md-150px text-center">
                                                         <img class="img-fluid lazyload mx-auto has-transition"
                                                             src="{{ asset('assets/img/placeholder.jpg') }}"
-                                                            data-src="{{ isset($classified_product->thumbnail->file_name) ? my_asset($classified_product->thumbnail->file_name) : asset('assets/img/placeholder.jpg') }}"
+                                                            data-src="{{ isset($classified_product->thumbnail->file_name) ? asset($classified_product->thumbnail->file_name) : asset('assets/img/placeholder.jpg') }}"
                                                             alt="{{ $classified_product->getTranslation('name') }}"
                                                             onerror="this.onerror=null;this.src='{{ asset('assets/img/placeholder.jpg') }}';">
                                                     </a>
